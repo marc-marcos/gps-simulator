@@ -29,5 +29,5 @@ class Satelite:
             self.y_speed *= -1
     
     def change_speed(self, increment):
-        if increment == 1: self.speed *= 2
-        elif increment == -1: self.speed /= 2
+        if increment == 1 and self.speed < 1000: self.speed *= 2
+        elif increment == -1 and self.speed > 0: self.speed /= 2

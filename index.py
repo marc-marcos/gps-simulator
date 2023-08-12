@@ -20,10 +20,18 @@ satelite1 = Satelite.Satelite(random.randint(0, WIDTH), random.randint(0, HEIGHT
 satelite2 = Satelite.Satelite(random.randint(0, WIDTH), random.randint(0, HEIGHT))
 satelite3 = Satelite.Satelite(random.randint(0, WIDTH), random.randint(0, HEIGHT))
 
+# Initializing the font
+font = pygame.font.SysFont("Arial", 20)
+img1 = font.render("Space to stop the satelites", True, (255, 255, 255))
+img2 = font.render("Z to increase speed", True, (255, 255, 255))
+img3 = font.render("X to decrease speed", True, (255, 255, 255))
+img4 = font.render("ESC to quit", True, (255, 255, 255))
+
 is_running = True
 satelites_moving = True
 
 while is_running:
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             is_running = False
@@ -41,6 +49,9 @@ while is_running:
                 satelite1.change_speed(-1)
                 satelite2.change_speed(-1)
                 satelite3.change_speed(-1)
+            
+            if event.key == pygame.K_ESCAPE:
+                is_running = False
     
     keys = pygame.key.get_pressed()
     if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
@@ -59,6 +70,14 @@ while is_running:
 
 
     window_surface.fill((0, 0, 0))
+
+    img5 = font.render(f"Speed: {round(satelite1.speed*10)}", True, (255, 255, 255))
+
+    window_surface.blit(img1, (10, 0))
+    window_surface.blit(img2, (10, 20))
+    window_surface.blit(img3, (10, 40))
+    window_surface.blit(img4, (10, 60))
+    window_surface.blit(img5, (10, HEIGHT-25))
 
     # Drawing the player
     pygame.draw.circle(window_surface, pygame.Color("red"), (player.x, player.y), 5)
